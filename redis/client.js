@@ -27,5 +27,5 @@ redisClient.hKeys("species", function (err, replies) {
     replies.forEach(function (reply, i) {
         console.log("    " + i + ": " + reply);
     });
-    redisClient.quit();
+    // redisClient.quit();
 });
