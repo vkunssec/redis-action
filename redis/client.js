@@ -29,12 +29,12 @@ const redis = require("redis");
     // Gets all fields in "species" key
     
     console.log('hash keys')
-    redisClient.hKeys("species", function (err, replies) {
-        console.log(replies.length + " replies:");
-        replies.forEach(function (reply, i) {
-            console.log("    " + i + ": " + reply);
-        });
-        console.log('close connection');
-        redisClient.quit();
+    const replies = await redisClient.hKeys("species");
+    console.log(replies.length + " replies:");
+    replies.forEach(function (reply, i) {
+        console.log("    " + i + ": " + reply);
     });
+
+    console.log('close connection');
+    redisClient.quit();
 })();
