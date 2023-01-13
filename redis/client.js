@@ -12,23 +12,29 @@ const redis = require("redis");
         console.log("Error " + err);
     });
     
+    console.log('open connection');
     await redisClient.connect();
     
+    console.log('set value');
     // Sets the key "octocat" to a value of "Mona the octocat"
-    redisClient.set("octocat", "Mona the Octocat", redis.print);
+    await redisClient.set("octocat", "Mona the Octocat", redis.print);
+    
+    console.log('set hash values');
     // Sets a key to "octocat", field to "species", and "value" to "Cat and Octopus"
-    redisClient.hSet("species", "octocat", "Cat and Octopus", redis.print);
+    await redisClient.hSet("species", "octocat", "Cat and Octopus", redis.print);
     // Sets a key to "octocat", field to "species", and "value" to "Dinosaur and Octopus"
-    redisClient.hSet("species", "dinotocat", "Dinosaur and Octopus", redis.print);
+    await redisClient.hSet("species", "dinotocat", "Dinosaur and Octopus", redis.print);
     // Sets a key to "octocat", field to "species", and "value" to "Cat and Robot"
-    redisClient.hSet("species", "robotocat", "Cat and Robot", redis.print);
+    await redisClient.hSet("species", "robotocat", "Cat and Robot", redis.print);
     // Gets all fields in "species" key
     
+    console.log('hash keys')
     redisClient.hKeys("species", function (err, replies) {
         console.log(replies.length + " replies:");
         replies.forEach(function (reply, i) {
             console.log("    " + i + ": " + reply);
         });
+        console.log('close connection');
         redisClient.quit();
     });
 })();
