@@ -5,8 +5,7 @@ const redis = require("redis");
     // If REDIS_HOST is not set, the default host is localhost
     // If REDIS_PORT is not set, the default port is 6379
     const redisClient = redis.createClient({
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT  
+        url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
     });
     
     redisClient.on("error", function(err) {
@@ -16,13 +15,13 @@ const redis = require("redis");
     await redisClient.connect();
     
     // Sets the key "octocat" to a value of "Mona the octocat"
-    await redisClient.set("octocat", "Mona the Octocat", redis.print);
+    redisClient.set("octocat", "Mona the Octocat", redis.print);
     // Sets a key to "octocat", field to "species", and "value" to "Cat and Octopus"
-    await redisClient.hSet("species", "octocat", "Cat and Octopus", redis.print);
+    redisClient.hSet("species", "octocat", "Cat and Octopus", redis.print);
     // Sets a key to "octocat", field to "species", and "value" to "Dinosaur and Octopus"
-    await redisClient.hSet("species", "dinotocat", "Dinosaur and Octopus", redis.print);
+    redisClient.hSet("species", "dinotocat", "Dinosaur and Octopus", redis.print);
     // Sets a key to "octocat", field to "species", and "value" to "Cat and Robot"
-    await redisClient.hSet("species", "robotocat", "Cat and Robot", redis.print);
+    redisClient.hSet("species", "robotocat", "Cat and Robot", redis.print);
     // Gets all fields in "species" key
     
     redisClient.hKeys("species", function (err, replies) {
