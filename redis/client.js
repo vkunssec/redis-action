@@ -9,7 +9,7 @@ const redis = require("redis");
     });
     
     redisClient.on("error", function(err) {
-        console.log("Error " + err);
+        console.log("Error: " + err);
     });
     
     console.log('open connection');
